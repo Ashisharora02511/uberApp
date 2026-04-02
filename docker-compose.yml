@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgis/postgis:15-3.4
+    container_name: uber-postgres
+    environment:
+      POSTGRES_DB: uber_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - uber-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: uber-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ashish.arora02511@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - uber-network
+
+networks:
+  uber-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/uber_db
+    username: postgres
+    password: postgres
