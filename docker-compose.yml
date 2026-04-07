@@ -36,8 +36,3 @@ volumes:
   postgres_data:
 
 
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/uber_db
-    username: postgres
-    password: postgres

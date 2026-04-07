@@ -1,7 +1,8 @@
 package com.java.uber.uberApp.entities;
 
 import jakarta.persistence.*;
-import org.springframework.data.geo.Point;
+import org.locationtech.jts.geom.Point;
+
 
 @Entity
 public class Driver {

@@ -1,5 +1,6 @@
 package com.java.uber.uberApp.entities;
 
+import com.java.uber.uberApp.entities.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 
