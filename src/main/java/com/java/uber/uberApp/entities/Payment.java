@@ -3,6 +3,7 @@
 import com.java.uber.uberApp.entities.enums.PaymentMethod;
 import com.java.uber.uberApp.entities.enums.PaymentStatus;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@Builder
 public class Payment {
 
 

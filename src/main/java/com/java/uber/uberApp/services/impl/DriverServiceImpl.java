@@ -11,6 +11,7 @@ import com.java.uber.uberApp.entities.enums.RideStatus;
 import com.java.uber.uberApp.exceptions.ResourcesNotFoundException;
 import com.java.uber.uberApp.repositories.DriverRepository;
 import com.java.uber.uberApp.services.DriverService;
+import com.java.uber.uberApp.services.PaymentService;
 import com.java.uber.uberApp.services.RideRequestService;
 import com.java.uber.uberApp.services.RideService;
 
@@ -35,6 +36,7 @@ public class DriverServiceImpl implements DriverService {
 	private final DriverRepository driverRepository;
 	private final RideService rideService;
 	private final ModelMapper mapper;
+	private final PaymentService paymentService;
 	
 	 
     @Override
@@ -95,15 +97,29 @@ public class DriverServiceImpl implements DriverService {
 		ride.setStartedAt(LocalDateTime.now());
 		Ride updateRideStatus = rideService.updateRideStatus(ride, RideStatus.ONGOING);
 	
+		paymentService.createNewPayment(updateRideStatus);
+		
 		
 
 		return mapper.map(updateRideStatus, RideDto.class);
 	}
 
 	@Override
+	@Transactional
 	public RideDto endRide(Long rideId) {
-		// TODO Auto-generated method stub
-		return null;
+		Ride ride=rideService.getRideById(rideId);
+		Driver driver=getCurrentDriver();
+		if(!driver.equals(ride.getDriver())) {
+			throw new RuntimeException("Driver cannnot start a ride and he has not accepted  it eariler");
+			
+		}
+		if(!ride.getRideStatus().equals(RideStatus.ONGOING)) {
+			throw new RuntimeException("Ride status is not ONGOING hence cannot be ended ,Status;"+ride.getRideStatus());
+		}
+		ride.setEndedAt(LocalDateTime.now());
+		Ride updateRideStatus = rideService.updateRideStatus(ride, RideStatus.ENDED);
+		updateDriverAvilabilty(driver, true);
+		return mapper.map(updateRideStatus, RideDto.class);
 	}
 
 	@Override
