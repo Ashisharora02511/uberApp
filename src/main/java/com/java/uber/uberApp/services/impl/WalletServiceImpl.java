@@ -27,10 +27,10 @@ public class WalletServiceImpl  implements WalletService{
 		
 		wallet.setBalance(wallet.getBalance()+amount);
 		
-		 WalletTransactions walletTransactionDto=WalletTransactions.builder()
-				           .transactionId(transactionId)
-				           .ride(ride)
-				           .wallet(wallet);
+		/*
+		 * WalletTransactions walletTransactionDto=WalletTransactions.builder()
+		 * .transactionId(transactionId) .ride(ride) .wallet(wallet);
+		 */
 		
 		return walletRepository.save(wallet);
 	}
