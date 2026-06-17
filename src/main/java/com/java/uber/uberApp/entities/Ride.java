@@ -4,6 +4,7 @@ import com.java.uber.uberApp.entities.enums.PaymentMethod;
 import com.java.uber.uberApp.entities.enums.RideRequestStatus;
 import com.java.uber.uberApp.entities.enums.RideStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 public class Ride {
 
     @Id
@@ -44,6 +46,7 @@ public class Ride {
     private Double fare;
     private LocalDateTime startedAt;
     private LocalDateTime endedAt;
+    private String otp;
 
 
 
