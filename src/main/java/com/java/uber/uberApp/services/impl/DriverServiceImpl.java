@@ -123,7 +123,7 @@ public class DriverServiceImpl implements DriverService {
 	}
 
 	@Override
-	public RideDto rateRider(Long rideId, Integer rating) {
+	public RiderDto rateRider(Long rideId, Integer rating) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -174,5 +174,11 @@ public class DriverServiceImpl implements DriverService {
 	   
 	return save;
 		
+	}
+
+	@Override
+	public Driver createNewDriver(Driver driver) {
+		
+		return driverRepository.save(driver);
 	}
 }

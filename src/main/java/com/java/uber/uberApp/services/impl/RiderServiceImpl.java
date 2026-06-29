@@ -108,13 +108,14 @@ public class RiderServiceImpl implements RiderService {
         return modelMapper.map(currentRider, RiderDto.class);
     }
 
-    @Override
-    public Page<RideDto> getMyRide(PageRequest pageRequest) {
-    	
-    	Rider currentRider= getCurrentRider();
-    	
-        return rideService.getAllRidesOfRider(currentRider, pageRequest).map(ride->modelMapper.map(ride, RideDto.class));
-    }
+	/*
+	 * @Override public Page<RideDto> getMyRide(PageRequest pageRequest) {
+	 * 
+	 * Rider currentRider= getCurrentRider();
+	 * 
+	 * return rideService.getAllRidesOfRider(currentRider,
+	 * pageRequest).map(ride->modelMapper.map(ride, RideDto.class)); }
+	 */
 
     @Override
     public Rider createNewRider(User user) {
@@ -130,4 +131,16 @@ public class RiderServiceImpl implements RiderService {
     public Rider getCurrentRider() {
         return riderRepository.findById(1l).orElseThrow(()->new ResourcesNotFoundException("Rider not found with id"+1));
     }
+
+	@Override
+	public DriverDto rateDriver(Long rideId, Integer rating) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<RideDto> getAllMyRides(PageRequest pageRequest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

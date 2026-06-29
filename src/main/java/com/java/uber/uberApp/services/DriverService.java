@@ -21,7 +21,7 @@ public interface DriverService {
     Page<RideDto> getAllMyRides(PageRequest pageRequest);
     RideDto startRide(Long rideId,String otp);
     RideDto endRide(Long rideId);
-    RideDto rateRider(Long rideId,Integer rating);
+    RiderDto rateRider(Long rideId,Integer rating);
     DriverDto getMyProfile();
     
     
@@ -31,4 +31,6 @@ public interface DriverService {
 	RideDto acceptRide(Long rideRequestId);
     Driver getCurrentDriver();
     Driver updateDriverAvilabilty(Driver driver,boolean avilable);
+    
+    Driver createNewDriver(Driver driver);
 }

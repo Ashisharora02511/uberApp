@@ -26,8 +26,14 @@ public interface RiderService {
     RideDto endRide(Long rideId);
     RideDto rateRider(Long rideID);
     RiderDto getMyProfile();
-    Page<RideDto> getMyRide(PageRequest pageRequest);
+   // Page<RideDto> getMyRide(PageRequest pageRequest);
     Rider createNewRider(User user);
     
     Rider getCurrentRider ();
+
+
+	DriverDto rateDriver(Long rideId, Integer rating);
+
+
+	  Page<RideDto> getAllMyRides(PageRequest pageRequest);
 }
