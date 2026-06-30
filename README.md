@@ -1,1 +1,1 @@
-testing purpose
+[![Docker Build](https://github.com/Ashisharora02511/uberApp/actions/workflows/docker-publish.yml/badge.svg?branch=main)](https://github.com/Ashisharora02511/uberApp/actions/workflows/docker-publish.yml)
