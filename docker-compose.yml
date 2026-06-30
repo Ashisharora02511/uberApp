@@ -1,30 +1,63 @@
-version: '3.8'
-
 services:
+
   postgres:
     image: postgis/postgis:15-3.4
     container_name: uber-postgres
+
     environment:
       POSTGRES_DB: uber_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+
     ports:
       - "5432:5432"
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d uber_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
     networks:
       - uber-network
 
   pgadmin:
     image: dpage/pgadmin4
     container_name: uber-pgadmin
+
     environment:
       PGADMIN_DEFAULT_EMAIL: ashish.arora02511@gmail.com
       PGADMIN_DEFAULT_PASSWORD: admin
+
     ports:
       - "5050:80"
+
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+
+    networks:
+      - uber-network
+
+  app:
+    build: .
+    container_name: uber-app
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/uber_db
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
     networks:
       - uber-network
 
@@ -34,5 +67,3 @@ networks:
 
 volumes:
   postgres_data:
-
-
